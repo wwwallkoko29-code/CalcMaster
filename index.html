@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Math Solver</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.10.0/math.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h2>Math Solver</h2>
+<input type="text" id="equation" placeholder="Enter equation e.g. 2x+5=15">
+<button onclick="solveEquation()">Solve</button>
+<br>
+<input type="file" id="imageInput" accept="image/*" capture="environment">
+<button onclick="solveFromImage()">Solve from Image</button>
+<div id="solution"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
