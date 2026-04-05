@@ -2,19 +2,31 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Math Solver</title>
+<title>Math Wizard - Equation Solver</title>
+<link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.10.0/math.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
-<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h2>Math Solver</h2>
-<input type="text" id="equation" placeholder="Enter equation e.g. 2x+5=15">
-<button onclick="solveEquation()">Solve</button>
-<br>
-<input type="file" id="imageInput" accept="image/*" capture="environment">
-<button onclick="solveFromImage()">Solve from Image</button>
-<div id="solution"></div>
+<div class="container">
+    <h1>Math Wizard</h1>
+    <p>Solve equations quickly and easily!</p>
+
+    <div class="section">
+        <label for="equation">Enter your equation (English or Arabic):</label>
+        <input type="text" id="equation" placeholder="e.g., 2x + 5 = 15">
+        <button onclick="solveEquation()">Solve</button>
+    </div>
+
+    <div class="section">
+        <label for="imageInput">Or upload a picture of an equation:</label>
+        <input type="file" id="imageInput" accept="image/*" capture="environment">
+        <button onclick="solveFromImage()">Solve from Image</button>
+    </div>
+
+    <div id="solution"></div>
+    <div id="steps"></div>
+</div>
 
 <script src="script.js"></script>
 </body>
