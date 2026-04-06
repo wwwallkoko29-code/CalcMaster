@@ -3,26 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Math AI Ultimate</title>
+  <title>CalcMaster Ultimate</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/mathjs@11.8.0/lib/browser/math.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.12.0/math.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>Math AI Ultimate</h1>
-    
-    <div id="chat" class="chat-box"></div>
+  <header>
+    <h1>CalcMaster Ultimate</h1>
+    <p>Enter any mathematical equation and get the solution step by step!</p>
+  </header>
 
-    <input type="text" id="input" placeholder="Type your math problem here...">
-    <button onclick="send()">Send</button>
-    <button onclick="clearChat()">Clear</button>
+  <main>
+    <div class="calculator">
+      <textarea id="equation" placeholder="Type your equation here, e.g. 2*x+5=15"></textarea>
+      <button onclick="solveEquation()">Solve</button>
+      <div id="solution"></div>
+    </div>
+  </main>
 
-    <h2>History</h2>
-    <div id="history" class="history-box"></div>
-
-    <canvas id="graph"></canvas>
-  </div>
+  <footer>
+    <p>© 2026 CalcMaster Ultimate | All rights reserved.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
