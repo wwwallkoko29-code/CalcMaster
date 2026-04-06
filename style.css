@@ -1,68 +1,47 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   background: #0f172a;
   color: white;
-  margin: 0;
-  padding: 0;
 }
 
 .container {
+  max-width: 700px;
+  margin: 30px auto;
   background: #1e293b;
   padding: 20px;
-  margin: 30px auto;
-  max-width: 700px;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
-h1 { font-size: 32px; margin-bottom: 10px; }
-.tools-buttons button {
-  margin: 10px;
-  padding: 12px 25px;
-  font-size: 16px;
+button {
+  margin: 5px;
+  padding: 10px 15px;
   border: none;
-  border-radius: 8px;
-  background-color: #3b82f6;
-  color: white;
+  border-radius: 6px;
   cursor: pointer;
 }
-.tools-buttons button:hover { background-color: #2563eb; }
 
-.tool-section { display: none; margin-top: 20px; }
-.tool-section input[type="text"],
-.tool-section input[type="date"] {
-  padding: 10px;
+.tools-buttons button {
+  background: #3b82f6;
+  color: white;
+}
+
+.tool-section {
+  display: none;
+  margin-top: 20px;
+}
+
+input {
   width: 80%;
-  border-radius: 6px;
-  border: none;
-  font-size: 16px;
+  padding: 10px;
   margin-bottom: 10px;
 }
-.tool-section button {
-  padding: 10px 20px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  background-color: #22c55e;
-  color: white;
-  font-size: 16px;
-}
-.tool-section button:hover { background-color: #16a34a; }
 
 .keyboard {
-  margin: 10px auto;
-  max-width: 500px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 }
+
 .keyboard button {
-  margin: 5px;
-  padding: 12px;
-  border-radius: 6px;
-  border: none;
-  background-color: #facc15;
+  background: #facc15;
   color: black;
-  font-weight: bold;
-  cursor: pointer;
 }
-.keyboard button:hover { background-color: #eab308; }
