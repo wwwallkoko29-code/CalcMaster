@@ -3,46 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CalcMaster - Ultimate Math Tools</title>
+<title>CalcMaster</title>
+
 <link rel="stylesheet" href="style.css">
+
+<!-- مكتبة الحل -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+
 </head>
 <body>
+
 <div class="container">
   <h1>CalcMaster</h1>
-  <p>Ultimate Math Tool: Solve Anything!</p>
 
   <div class="tools-buttons">
-    <button onclick="showTool('equation')">Equation Solver</button>
-    <button onclick="showTool('fraction')">Fraction Simplifier</button>
-    <button onclick="showTool('age')">Age Calculator</button>
+    <button onclick="showTool('equation')">Equation</button>
+    <button onclick="showTool('fraction')">Fraction</button>
+    <button onclick="showTool('age')">Age</button>
   </div>
 
-  <!-- Equation Solver -->
+  <!-- Equation -->
   <div id="equation" class="tool-section">
-    <h2>Equation Solver</h2>
-    <input type="text" id="eq-input" placeholder="Type your equation here">
-    <div class="keyboard" id="math-keyboard"></div>
+    <input type="text" id="eq-input" placeholder="2*x+4=10">
+    <div id="math-keyboard" class="keyboard"></div>
     <button onclick="solveEquation()">Solve</button>
     <p id="eq-result"></p>
   </div>
 
-  <!-- Fraction Simplifier -->
+  <!-- Fraction -->
   <div id="fraction" class="tool-section">
-    <h2>Fraction Simplifier</h2>
-    <input type="text" id="frac-input" placeholder="e.g. 8/12">
+    <input type="text" id="frac-input" placeholder="8/12">
     <button onclick="simplifyFraction()">Simplify</button>
     <p id="frac-result"></p>
   </div>
 
-  <!-- Age Calculator -->
+  <!-- Age -->
   <div id="age" class="tool-section">
-    <h2>Age Calculator</h2>
     <input type="date" id="birthdate">
-    <button onclick="calculateAge()">Calculate Age</button>
+    <button onclick="calculateAge()">Calculate</button>
     <p id="age-result"></p>
   </div>
+
 </div>
 
 <script src="script.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+  showTool('equation');
+});
+</script>
+
 </body>
 </html>
