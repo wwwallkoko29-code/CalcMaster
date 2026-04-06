@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Math AI Ultimate 3.0</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math AI Ultimate</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/mathjs@11.8.0/lib/browser/math.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+  <div class="container">
+    <h1>Math AI Ultimate / الرياضيات الذكية</h1>
+    
+    <div id="chat" class="chat-box"></div>
 
-<div class="app">
-  <h1>Math AI Ultimate 3.0</h1>
+    <input type="text" id="input" placeholder="اكتب هنا / Type here...">
+    <button onclick="send()">Send / إرسال</button>
+    <button onclick="clearChat()">Clear / مسح</button>
 
-  <div id="chat"></div>
-  <canvas id="graph"></canvas>
+    <h2>History / التاريخ</h2>
+    <div id="history" class="history-box"></div>
 
-  <div class="input-box">
-    <input id="input" placeholder="Type math problem... e.g. 2x+5=15">
-    <button onclick="send()">Send</button>
-    <button onclick="clearChat()">Clear</button>
+    <canvas id="graph"></canvas>
   </div>
 
-  <h3>History</h3>
-  <div id="history"></div>
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
