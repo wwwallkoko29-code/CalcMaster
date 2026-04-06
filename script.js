@@ -1,4 +1,4 @@
-// ===== Math AI Ultimate 3.0 Script with Voice =====
+// ===== Math AI Ultimate 3.0 Script بدون صوت =====
 const chat = document.getElementById("chat");
 const historyBox = document.getElementById("history");
 const graphCanvas = document.getElementById("graph");
@@ -20,20 +20,6 @@ function saveHistory(q,res){
   historyBox.appendChild(item);
 }
 
-// التحدث بالصوت (Voice) بصوت رجل
-function speak(text){
-  const msg = new SpeechSynthesisUtterance();
-  msg.text = text;
-
-  // اختيار صوت رجل متاح
-  const voices = window.speechSynthesis.getVoices();
-  msg.voice = voices.find(v => v.name.toLowerCase().includes("male") || v.lang.includes("en")) || voices[0];
-
-  msg.rate = 0.9; // سرعة الكلام
-  msg.pitch = 1;  // نبرة الصوت
-  window.speechSynthesis.speak(msg);
-}
-
 // تنظيف وتحويل المدخلات
 function clean(q){
   q = q.toLowerCase();
@@ -45,8 +31,10 @@ function clean(q){
   q = q.replace(/طرح/g,"-");
   q = q.replace(/حل/g,"");
 
-  q = q.replace(/\s+/g,""); // إزالة المسافات
+  // إزالة المسافات
+  q = q.replace(/\s+/g,"");
   q = q.replace(/×/g,"*");  // × → *
+  q = q.replace(/÷/g,"/");  // ÷ → /
   q = q.replace(/(\d)x(\d)/g,"$1*$2"); // 2x3 → 2*3
   q = q.replace(/(\d)x/g,"$1*x");     // 2x → 2*x
   q = q.replace(/x(\d)/g,"x*$1");     // x2 → x*2
@@ -69,7 +57,7 @@ function drawGraph(expr){
   });
 }
 
-// دالة الحل مع الشرح + الصوت
+// دالة الحل بدون صوت
 function solve(q){
   try{
     q = clean(q);
@@ -80,7 +68,6 @@ function solve(q){
       let expr = q.replace("d/dx","");
       let d = math.derivative(expr,"x").toString();
       resultText = `Derivative of ${expr} is ${d}`;
-      speak(resultText);
       return resultText;
     }
 
@@ -96,7 +83,6 @@ function solve(q){
         resultText = `Solution: x = ${sol}. Steps: Move everything to one side, simplify, solve for x.`;
         saveHistory(q,sol);
       }
-      speak(resultText);
       return resultText;
     }
 
@@ -104,7 +90,6 @@ function solve(q){
     if(q.includes("x") && !q.includes("=")){
       drawGraph(q);
       resultText = `Graph drawn for: ${q}`;
-      speak(resultText);
       return resultText;
     }
 
@@ -112,12 +97,10 @@ function solve(q){
     let result = math.evaluate(q);
     resultText = `Result: ${result}. Steps: Apply PEMDAS and compute step by step.`;
     saveHistory(q,result);
-    speak(resultText);
     return resultText;
 
   }catch{
     resultText = "❌ Invalid math problem";
-    speak(resultText);
     return resultText;
   }
 }
