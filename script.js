@@ -1,54 +1,55 @@
+// ===== Math AI Ultimate 3.0 Script with Voice =====
 const chat = document.getElementById("chat");
 const historyBox = document.getElementById("history");
 const graphCanvas = document.getElementById("graph");
 let chart;
 
-// عرض رسالة
+// عرض رسالة في المحادثة
 function addMsg(text,type){
-  let div=document.createElement("div");
-  div.className="msg "+type;
-  div.innerText=text;
+  let div = document.createElement("div");
+  div.className = "msg "+type;
+  div.innerText = text;
   chat.appendChild(div);
-  chat.scrollTop=chat.scrollHeight;
+  chat.scrollTop = chat.scrollHeight;
 }
 
 // حفظ التاريخ
 function saveHistory(q,res){
-  let item=document.createElement("div");
-  item.innerText=q+" = "+res;
+  let item = document.createElement("div");
+  item.innerText = q + " = " + res;
   historyBox.appendChild(item);
 }
 
-// إرسال
-function send(){
-  let input=document.getElementById("input");
-  let text=input.value.trim();
-  if(!text) return;
+// التحدث بالصوت (Voice) بصوت رجل
+function speak(text){
+  const msg = new SpeechSynthesisUtterance();
+  msg.text = text;
 
-  addMsg(text,"user");
-  let reply=solve(text);
-  setTimeout(()=>addMsg(reply,"ai"),200);
-  input.value="";
+  // اختيار صوت رجل متاح
+  const voices = window.speechSynthesis.getVoices();
+  msg.voice = voices.find(v => v.name.toLowerCase().includes("male") || v.lang.includes("en")) || voices[0];
+
+  msg.rate = 0.9; // سرعة الكلام
+  msg.pitch = 1;  // نبرة الصوت
+  window.speechSynthesis.speak(msg);
 }
 
-// Enter
-document.getElementById("input").addEventListener("keypress",e=>{
-  if(e.key==="Enter") send();
-});
-
-// تنظيف
+// تنظيف وتحويل المدخلات
 function clean(q){
-  q=q.toLowerCase();
-  q=q.replace(/ضرب/g,"*");
-  q=q.replace(/قسمة/g,"/");
-  q=q.replace(/جمع/g,"+");
-  q=q.replace(/طرح/g,"-");
-  q=q.replace(/حل/g,"");
-  q=q.replace(/\s+/g,"");
-  q=q.replace(/×/g,"*");
-  q=q.replace(/(\d)x(\d)/g,"$1*$2");
-  q=q.replace(/(\d)x/g,"$1*x");
-  q=q.replace(/x(\d)/g,"x*$1");
+  q = q.toLowerCase();
+
+  // تحويل الكلمات العربية إلى رموز رياضية
+  q = q.replace(/ضرب/g,"*");
+  q = q.replace(/قسمة/g,"/");
+  q = q.replace(/جمع/g,"+");
+  q = q.replace(/طرح/g,"-");
+  q = q.replace(/حل/g,"");
+
+  q = q.replace(/\s+/g,""); // إزالة المسافات
+  q = q.replace(/×/g,"*");  // × → *
+  q = q.replace(/(\d)x(\d)/g,"$1*$2"); // 2x3 → 2*3
+  q = q.replace(/(\d)x/g,"$1*x");     // 2x → 2*x
+  q = q.replace(/x(\d)/g,"x*$1");     // x2 → x*2
   return q;
 }
 
@@ -57,51 +58,90 @@ function drawGraph(expr){
   if(chart) chart.destroy();
   let x=[],y=[];
   for(let i=-10;i<=10;i+=0.5){
-    try{x.push(i); y.push(math.evaluate(expr,{x:i}));}catch{}
+    try{
+      x.push(i);
+      y.push(math.evaluate(expr,{x:i}));
+    }catch{}
   }
-  chart=new Chart(graphCanvas,{
+  chart = new Chart(graphCanvas,{
     type:'line',
     data:{labels:x,datasets:[{data:y,borderColor:'red',borderWidth:2}]}
   });
 }
 
-// حل + شرح
+// دالة الحل مع الشرح + الصوت
 function solve(q){
   try{
-    q=clean(q);
+    q = clean(q);
+    let resultText = "";
 
     // مشتقة
     if(q.includes("d/dx")){
-      let expr=q.replace("d/dx","");
-      let d=math.derivative(expr,"x");
-      return "Derivative:\n"+d;
+      let expr = q.replace("d/dx","");
+      let d = math.derivative(expr,"x").toString();
+      resultText = `Derivative of ${expr} is ${d}`;
+      speak(resultText);
+      return resultText;
     }
 
     // معادلة
     if(q.includes("=")){
-      let parts=q.split("=");
-      if(parts.length!==2) return "Invalid equation";
-      let left=parts[0]; let right=parts[1];
-      let expr=`${left}-(${right})`;
-      let sol=math.solve(expr,"x");
-      saveHistory(q,sol);
-      return `Solution:\nx = ${sol}\nSteps:\n1) Move to one side\n2) Simplify\n3) Solve`;
+      let parts = q.split("=");
+      if(parts.length!==2) resultText = "Invalid equation";
+      else {
+        let left = parts[0]; 
+        let right = parts[1];
+        let expr = `${left}-(${right})`;
+        let sol = math.solve(expr,"x");
+        resultText = `Solution: x = ${sol}. Steps: Move everything to one side, simplify, solve for x.`;
+        saveHistory(q,sol);
+      }
+      speak(resultText);
+      return resultText;
     }
 
-    // رسم دالة
+    // رسم دالة إذا فيها x بدون =
     if(q.includes("x") && !q.includes("=")){
       drawGraph(q);
-      return `Graph drawn for: ${q}`;
+      resultText = `Graph drawn for: ${q}`;
+      speak(resultText);
+      return resultText;
     }
 
-    // حساب عادي
-    let result=math.evaluate(q);
+    // حساب عادي (ضرب، قسمة، جمع، طرح)
+    let result = math.evaluate(q);
+    resultText = `Result: ${result}. Steps: Apply PEMDAS and compute step by step.`;
     saveHistory(q,result);
-    return `Result: ${result}\nSteps:\n1) Apply PEMDAS\n2) Compute step by step`;
+    speak(resultText);
+    return resultText;
+
   }catch{
-    return "❌ Invalid math problem";
+    resultText = "❌ Invalid math problem";
+    speak(resultText);
+    return resultText;
   }
 }
 
-// مسح
-function clearChat(){chat.innerHTML=""; historyBox.innerHTML=""; if(chart) chart.destroy();} 
+// إرسال العملية عند الضغط على زر أو Enter
+function send(){
+  let input = document.getElementById("input");
+  let text = input.value.trim();
+  if(!text) return;
+
+  addMsg(text,"user");
+  let reply = solve(text);
+  setTimeout(()=>addMsg(reply,"ai"),200);
+  input.value = "";
+}
+
+// مسح كل شيء
+function clearChat(){
+  chat.innerHTML="";
+  historyBox.innerHTML="";
+  if(chart) chart.destroy();
+}
+
+// دعم Enter
+document.getElementById("input").addEventListener("keypress",e=>{
+  if(e.key==="Enter") send();
+});
