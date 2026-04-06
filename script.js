@@ -1,5 +1,6 @@
 const chat = document.getElementById("chat");
 
+// إضافة رسالة
 function addMsg(text, type){
   let div = document.createElement("div");
   div.className = "msg " + type;
@@ -8,6 +9,7 @@ function addMsg(text, type){
   chat.scrollTop = chat.scrollHeight;
 }
 
+// إرسال
 function send(){
   let input = document.getElementById("input");
   let text = input.value.trim();
@@ -18,40 +20,71 @@ function send(){
 
   let reply = solve(text);
 
-  setTimeout(()=> addMsg(reply, "ai"), 300);
+  setTimeout(() => addMsg(reply, "ai"), 200);
 
   input.value = "";
 }
 
-// 🔥 الذكاء الرياضي
+// Enter
+document.getElementById("input").addEventListener("keypress", function(e){
+  if(e.key === "Enter") send();
+});
+
+// تنظيف الإدخال
+function clean(q){
+  q = q.toLowerCase();
+
+  q = q.replace(/حل/g, "");
+  q = q.replace(/ /g, "");
+
+  q = q.replace(/(\d)([a-z])/g, "$1*$2");
+
+  return q;
+}
+
+// حل + شرح
 function solve(q){
 
   try {
 
+    q = clean(q);
+
     // معادلة
     if(q.includes("=")){
-      let [l,r] = q.split("=");
+      let parts = q.split("=");
+      let left = parts[0];
+      let right = parts[1];
 
-      let expr = `${l} - (${r})`;
+      let expr = `${left} - (${right})`;
 
-      let x = math.solve(expr, "x");
+      let solution = math.solve(expr, "x");
 
-      return `x = ${x}
+      return `Solution:
+x = ${solution}
 
-Step:
-Move all terms to one side
-Solve for x`;
+Steps:
+1) Move all terms to one side
+2) Simplify equation
+3) Solve for x`;
     }
 
     // حساب عادي
-    let res = math.evaluate(q);
+    let result = math.evaluate(q);
 
-    return `Result: ${res}
+    return `Result:
+${result}
 
-Step:
-Calculated using math rules`;
+Steps:
+1) Apply operations
+2) Follow order (PEMDAS)
+3) Final answer`;
 
   } catch {
-    return "Write a valid math problem only";
+    return "Please enter a valid math problem";
   }
+}
+
+// مسح
+function clearChat(){
+  chat.innerHTML = "";
 }
