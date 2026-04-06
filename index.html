@@ -2,30 +2,45 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Math Wizard - Equation Solver</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CalcMaster - Ultimate Math Tools</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.10.0/math.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
 </head>
 <body>
 <div class="container">
-    <h1>Math Wizard</h1>
-    <p>Solve equations quickly and easily!</p>
+  <h1>CalcMaster</h1>
+  <p>Ultimate Math Tool: Solve Anything!</p>
 
-    <div class="section">
-        <label for="equation">Enter your equation (English or Arabic):</label>
-        <input type="text" id="equation" placeholder="e.g., 2x + 5 = 15">
-        <button onclick="solveEquation()">Solve</button>
-    </div>
+  <div class="tools-buttons">
+    <button onclick="showTool('equation')">Equation Solver</button>
+    <button onclick="showTool('fraction')">Fraction Simplifier</button>
+    <button onclick="showTool('age')">Age Calculator</button>
+  </div>
 
-    <div class="section">
-        <label for="imageInput">Or upload a picture of an equation:</label>
-        <input type="file" id="imageInput" accept="image/*" capture="environment">
-        <button onclick="solveFromImage()">Solve from Image</button>
-    </div>
+  <!-- Equation Solver -->
+  <div id="equation" class="tool-section">
+    <h2>Equation Solver</h2>
+    <input type="text" id="eq-input" placeholder="Type your equation here">
+    <div class="keyboard" id="math-keyboard"></div>
+    <button onclick="solveEquation()">Solve</button>
+    <p id="eq-result"></p>
+  </div>
 
-    <div id="solution"></div>
-    <div id="steps"></div>
+  <!-- Fraction Simplifier -->
+  <div id="fraction" class="tool-section">
+    <h2>Fraction Simplifier</h2>
+    <input type="text" id="frac-input" placeholder="e.g. 8/12">
+    <button onclick="simplifyFraction()">Simplify</button>
+    <p id="frac-result"></p>
+  </div>
+
+  <!-- Age Calculator -->
+  <div id="age" class="tool-section">
+    <h2>Age Calculator</h2>
+    <input type="date" id="birthdate">
+    <button onclick="calculateAge()">Calculate Age</button>
+    <p id="age-result"></p>
+  </div>
 </div>
 
 <script src="script.js"></script>
