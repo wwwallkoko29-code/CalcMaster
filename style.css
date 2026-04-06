@@ -1,62 +1,68 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f4f8;
-    margin: 0;
-    padding: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-    max-width: 700px;
-    margin: 50px auto;
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    text-align: center;
+  background: #1e293b;
+  padding: 20px;
+  margin: 30px auto;
+  max-width: 700px;
+  border-radius: 12px;
 }
 
-h1 {
-    color: #2E8B57;
-    margin-bottom: 10px;
+h1 { font-size: 32px; margin-bottom: 10px; }
+.tools-buttons button {
+  margin: 10px;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3b82f6;
+  color: white;
+  cursor: pointer;
 }
+.tools-buttons button:hover { background-color: #2563eb; }
 
-.section {
-    margin: 20px 0;
+.tool-section { display: none; margin-top: 20px; }
+.tool-section input[type="text"],
+.tool-section input[type="date"] {
+  padding: 10px;
+  width: 80%;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
+.tool-section button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background-color: #22c55e;
+  color: white;
+  font-size: 16px;
+}
+.tool-section button:hover { background-color: #16a34a; }
 
-input {
-    width: 80%;
-    padding: 12px;
-    font-size: 16px;
-    margin: 8px 0;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+.keyboard {
+  margin: 10px auto;
+  max-width: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-
-button {
-    padding: 12px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #2E8B57;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.keyboard button {
+  margin: 5px;
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: #facc15;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
 }
-
-button:hover {
-    background-color: #246b45;
-}
-
-#solution {
-    margin-top: 25px;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-#steps {
-    margin-top: 15px;
-    font-size: 16px;
-    color: #555;
-    text-align: left;
-}
+.keyboard button:hover { background-color: #eab308; }
