@@ -3,56 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CalcMaster</title>
+<title>Math AI</title>
 
 <link rel="stylesheet" href="style.css">
 
-<!-- مكتبة الحل -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
-
 </head>
+
 <body>
 
-<div class="container">
-  <h1>CalcMaster</h1>
+<div class="app">
 
-  <div class="tools-buttons">
-    <button onclick="showTool('equation')">Equation</button>
-    <button onclick="showTool('fraction')">Fraction</button>
-    <button onclick="showTool('age')">Age</button>
-  </div>
+  <h1>Math AI</h1>
 
-  <!-- Equation -->
-  <div id="equation" class="tool-section">
-    <input type="text" id="eq-input" placeholder="2*x+4=10">
-    <div id="math-keyboard" class="keyboard"></div>
-    <button onclick="solveEquation()">Solve</button>
-    <p id="eq-result"></p>
-  </div>
+  <div id="chat"></div>
 
-  <!-- Fraction -->
-  <div id="fraction" class="tool-section">
-    <input type="text" id="frac-input" placeholder="8/12">
-    <button onclick="simplifyFraction()">Simplify</button>
-    <p id="frac-result"></p>
-  </div>
-
-  <!-- Age -->
-  <div id="age" class="tool-section">
-    <input type="date" id="birthdate">
-    <button onclick="calculateAge()">Calculate</button>
-    <p id="age-result"></p>
+  <div class="input-box">
+    <input id="input" placeholder="Type math problem... e.g. 2*x+4=10">
+    <button onclick="send()">Send</button>
   </div>
 
 </div>
 
 <script src="script.js"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', ()=>{
-  showTool('equation');
-});
-</script>
 
 </body>
 </html>
